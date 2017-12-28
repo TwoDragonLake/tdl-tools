@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package com.twodragonlake.tools.common;
+package com.twodragonlake.tools.pager;
 
 /**
- * 读取配置文件 application.property.
+ * 排序的enum.
  *
  * @author : Bruce liu
  * @version : 1.0
- * @since : 2014/6/4 15:21
+ * @since : 2015/1/24 15:21
  */
-public class ReadProperty {
+public enum ORDERLY {
+    desc, asc;
 
-    public DecryptPropertyPlaceholderConfigurer dppc;
-
-    public String getValue(String key) {
-        return dppc.getValue(key);
+    public ORDERLY reverse() {
+        return (this == asc) ? desc : asc;
     }
-
-    public void setDppc(DecryptPropertyPlaceholderConfigurer dppc) {
-        this.dppc = dppc;
-    }
-
 }

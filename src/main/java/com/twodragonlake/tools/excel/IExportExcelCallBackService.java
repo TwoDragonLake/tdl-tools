@@ -1,51 +1,77 @@
-package com.twodragonlake.tools.excel;
+/*
+ * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import java.util.Date;
+package com.twodragonlake.tools.excel;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.util.Date;
+
 /**
- * 
- * @Title:
- * @Description:
- * @Author:hujianhua
- * @Since:2016年10月11日 下午12:02:23
- * @Version:1.1.0
- * @Copyright:Copyright (c) 浙江蘑菇加电子商务有限公司 2015 ~ 2016 版权所有
+ * Excel.
+ *
+ * @author : Ceaser wang
+ * @version : 1.0
+ * @since : 2016/3/2 15:01
  */
 public interface IExportExcelCallBackService {
-	
-	/**
-	 * 生成特殊的单元格（合并）
-	 * @param cellIndex
-	 * @param param
-	 * @param customParams
-	 * @throws Exception
-	 * @Description:
-	 */
-	public <T> void genSpacialCellCallBack(HSSFWorkbook workbook, int sheetIndex, HSSFSheet sheet, Date endTime) throws Exception;
-	
-	/**
-	 * 获取需要装载的Excel数据
-	 * @param cellIndex
-	 * @param param
-	 * @param customParams
-	 * @throws Exception
-	 * @Description:
-	 */
-	public <T>String getExcelCellDataCallBack(int cellIndex, T param, Object ...objectOnSuccess) throws Exception;
-	
-	/**
-	 * 导出成功的回调方法
-	 * @param param
-	 * @param customParams
-	 * @return
-	 * @throws Exception
-	 * @Description:
-	 */
-	public <T> void successCallBack(T paramOnSuccess, Object ...customParamsOnSuccess) throws Exception;
-	
+
+    /**
+     * 生成特殊的单元格（合并）
+     *
+     * @param workbook
+     * @param sheetIndex
+     * @param sheet
+     * @param endTime
+     * @throws Exception 异常
+     * @author Ceaser wang
+     * @version : 1.0
+     * @since : 2016/3/2 15:01
+     */
+    void genSpacialCellCallBack(HSSFWorkbook workbook, int sheetIndex, HSSFSheet sheet, Date endTime) throws Exception;
+
+    /**
+     * 获取需要装载的Excel数据
+     *
+     * @param cellIndex
+     * @param param
+     * @param objectOnSuccess
+     * @param <T>
+     * @return
+     * @throws Exception 异常
+     * @author Ceaser wang
+     * @version : 1.0
+     * @since : 2016/3/2 15:01
+     */
+    <T> String getExcelCellDataCallBack(int cellIndex, T param, Object... objectOnSuccess) throws Exception;
+
+    /**
+     * 导出成功的回调方法
+     *
+     * @param paramOnSuccess
+     * @param customParamsOnSuccess
+     * @param <T>
+     * @throws Exception 异常
+     * @author Ceaser wang
+     * @version : 1.0
+     * @since : 2016/3/2 15:01
+     */
+    <T> void successCallBack(T paramOnSuccess, Object... customParamsOnSuccess) throws Exception;
+
 }
 
 	

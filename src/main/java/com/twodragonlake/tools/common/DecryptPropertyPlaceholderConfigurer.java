@@ -1,83 +1,89 @@
-package com.twodragonlake.tools.common;
+/*
+ * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Properties;
+package com.twodragonlake.tools.common;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 import org.springframework.util.DefaultPropertiesPersister;
 import org.springframework.util.PropertiesPersister;
 
+import java.io.*;
+import java.util.Properties;
+
 /**
- * @Comment:加载资源文件
- * @author bruce.liu
- * @Create Date 2014年3月24日
+ * 加载资源文件.
+ *
+ * @author : Bruce liu
+ * @version : 1.0
+ * @since : 2014/3/24 11:25
  */
-public class DecryptPropertyPlaceholderConfigurer extends
-		PropertyPlaceholderConfigurer {
+public class DecryptPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
-	private Resource[] locations;
-	private String fileEncoding;
-	/* Linux的路径 */
-	private String linuxSystePath;
-	/* windows的路径 */
-	private String windowsSystemPath;
-	
-	private Properties props;
+    private Resource[] locations;
+    private String fileEncoding;
+    private String linuxSystemPath;
+    private String windowsSystemPath;
+    private Properties props;
 
-	public void setFileEncoding(String fileEncoding) {
-		this.fileEncoding = fileEncoding;
-	}
+    public void setFileEncoding(String fileEncoding) {
+        this.fileEncoding = fileEncoding;
+    }
 
-	public void setLocations(Resource[] locations) {
-		this.locations = locations;
-	}
+    public void setLocations(Resource[] locations) {
+        this.locations = locations;
+    }
 
-	public void setLinuxSystePath(String linuxSystePath) {
-		this.linuxSystePath = linuxSystePath;
-	}
+    public void setLinuxSystemPath(String linuxSystemPath) {
+        this.linuxSystemPath = linuxSystemPath;
+    }
 
-	public void setWindowsSystemPath(String windowsSystemPath) {
-		this.windowsSystemPath = windowsSystemPath;
-	}
+    public void setWindowsSystemPath(String windowsSystemPath) {
+        this.windowsSystemPath = windowsSystemPath;
+    }
 
-	public void loadProperties(Properties props) throws IOException {
-		if (this.locations != null) {
-			PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
-			for (int i = 0; i < this.locations.length; i++) {
-				InputStream is = null;
-				Resource location = this.locations[i];
-				File configDir = new File(linuxSystePath);
-				if (!configDir.exists()) {
-					is = this.getClass().getResourceAsStream(
-							windowsSystemPath + "/"
-									+ location.getFilename());
-				} else {
-					String filePath = linuxSystePath + File.separator
-							+ location.getFilename();
-					is = new FileInputStream(filePath);
-				}
-				try {
-					if (fileEncoding != null) {
-						propertiesPersister.load(props, new InputStreamReader(
-								is, fileEncoding));
-					} else {
-						propertiesPersister.load(props, is);
-					}
-					this.props = props;
-				} finally {
-					if (is != null)
-						is.close();
-				}
-			}
-		}
-	}
-	
-	public String getValue(String key) {
-		return props.getProperty(key);
-	}
+    public void loadProperties(Properties props) throws IOException {
+        if (this.locations != null) {
+            PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
+            for (Resource location1 : this.locations) {
+                InputStream is;
+                File configDir = new File(linuxSystemPath);
+                if (!configDir.exists()) {
+                    is = this.getClass().getResourceAsStream(
+                            windowsSystemPath + "/" + location1.getFilename());
+                } else {
+                    String filePath = linuxSystemPath + File.separator + location1.getFilename();
+                    is = new FileInputStream(filePath);
+                }
+                try {
+                    if (fileEncoding != null) {
+                        propertiesPersister.load(props, new InputStreamReader(is, fileEncoding));
+                    } else {
+                        propertiesPersister.load(props, is);
+                    }
+                    this.props = props;
+                } finally {
+                    if (is != null)
+                        is.close();
+                }
+            }
+        }
+    }
+
+    public String getValue(String key) {
+        return props.getProperty(key);
+    }
 }

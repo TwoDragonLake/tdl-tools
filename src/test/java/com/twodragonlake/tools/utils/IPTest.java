@@ -14,25 +14,29 @@
  * limitations under the License.
  */
 
-package com.twodragonlake.tools.common;
+package com.twodragonlake.tools.utils;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
- * 读取配置文件 application.property.
+ * Ip地址获取.
  *
- * @author : Bruce liu
+ * @author : Jerry xu
  * @version : 1.0
- * @since : 2014/6/4 15:21
+ * @since : 2017/12/28 0:35
  */
-public class ReadProperty {
+public class IPTest {
 
-    public DecryptPropertyPlaceholderConfigurer dppc;
+    private static final Logger logger = Logger.getLogger(IPTest.class);
 
-    public String getValue(String key) {
-        return dppc.getValue(key);
+    @Test
+    public void Test() throws Exception {
+        logger.info("getMacAddr:" + IPUtils.getMacAddr());
+        logger.info("getMacAddress:" + IPUtils.getMacAddress());
+        logger.info("getLocalIP:" + IPUtils.getLocalIP());
+        logger.info("getAllLocalHostIP:" + Arrays.toString(IPUtils.getAllLocalHostIP()));
     }
-
-    public void setDppc(DecryptPropertyPlaceholderConfigurer dppc) {
-        this.dppc = dppc;
-    }
-
 }
