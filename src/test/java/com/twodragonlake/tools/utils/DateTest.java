@@ -39,7 +39,7 @@ public class DateTest {
     @Test
     public void Test() throws Exception {
         logger.info(new SimpleDateFormat("yyyy-MM-dd mm:HH:ss").format(addMonth(new Date(), 2)));
-        List<Date> days = DateUtils.getDatesBetweenTwoDate(DateUtils.getdate("2013-01-09"), DateUtils.getdate("2013-01-11"));
+        List<Date> days = DateUtils.getDatesBetweenTwoDate(DateUtils.getDate("2013-01-09"), DateUtils.getDate("2013-01-11"));
         logger.info(days.size());
     }
 }

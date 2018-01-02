@@ -19,7 +19,10 @@ package com.twodragonlake.tools.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -74,8 +77,6 @@ public class IPUtils {
 
     /**
      * 获取本地ip
-     *
-     * @return
      */
     public static String getLocalIP() {
         Enumeration allNetInterfaces = null;

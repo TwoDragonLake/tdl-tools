@@ -30,7 +30,7 @@ public class FilePartUtils {
     /**
      * 取得年月日
      *
-     * @param module
+     * @param module module
      * @return module+年/月/日/
      * @author Maxwell wen
      * @version : 1.0

@@ -110,7 +110,7 @@ public class FtpUtils {
      * @param inStream 文件输入流
      * @param fileName 文件名
      * @param path     文件需要存放的路径
-     * @throws Exception
+     * @throws Exception 异常
      * @author Maxwell wen
      * @version : 1.0
      * @since : 2016/9/8 14:15
@@ -148,9 +148,9 @@ public class FtpUtils {
     /**
      * 上传文件
      *
-     * @param file
-     * @param path
-     * @throws Exception
+     * @param file File
+     * @param path path
+     * @throws Exception 异常
      * @author Maxwell wen
      * @version : 1.0
      * @since : 2016/9/8 14:15
@@ -192,8 +192,8 @@ public class FtpUtils {
     /**
      * 获取当前的FTP路径
      *
-     * @param path
-     * @return
+     * @param path path
+     * @return boolean
      * @author Maxwell wen
      * @version : 1.0
      * @since : 2016/9/8 14:15

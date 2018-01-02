@@ -16,7 +16,6 @@
 
 package com.twodragonlake.tools.utils;
 
-import com.twodragonlake.tools.vo.CommonTreeVo;
 import com.twodragonlake.tools.vo.DictionaryVo;
 import com.twodragonlake.tools.vo.WrapperTreeVo;
 import org.apache.commons.collections.CollectionUtils;
@@ -48,12 +47,12 @@ public class ModelUtils {
      *
      * @param clas    枚举class
      * @param methods 枚举方法数组【默认为 getCode,getName,getRemark,getSn】
-     * @return
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
+     * @return List
+     * @throws NoSuchMethodException     异常
+     * @throws SecurityException         异常
+     * @throws IllegalAccessException    异常
+     * @throws IllegalArgumentException  异常
+     * @throws InvocationTargetException 异常
      * @author wentaoxiang 2016年5月8日 下午7:12:24
      */
     public static List<DictionaryVo> getDictsByEnum(Class<?> clas, String... methods)
@@ -71,11 +70,11 @@ public class ModelUtils {
      * @param clas    枚举class
      * @param methods 枚举方法数组 【默认为 getSn,getCode】
      * @return key:sn(标识);value:code
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
+     * @throws NoSuchMethodException     异常
+     * @throws SecurityException         异常
+     * @throws IllegalAccessException    异常
+     * @throws IllegalArgumentException  异常
+     * @throws InvocationTargetException 异常
      * @author wentaoxiang 2016年5月8日 下午7:12:24
      */
     public static Map<String, Object> getMapByEnum(Class<?> clas, String... methods)
@@ -97,9 +96,9 @@ public class ModelUtils {
      * @param lists       List集合
      * @param methodNames 【methods.length==1:key:默认为 getSn,value:Object;methods.length!=1:key:默认为 getSn,value:默认为 getCode】
      * @return key:默认为 getSn,value:Object
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      * @author wentaoxiang 2016年7月11日 下午4:00:28
      */
     public static Map<String, Object> getMapByList(List<?> lists, String... methodNames) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -114,14 +113,13 @@ public class ModelUtils {
     /**
      * 转成map
      *
-     * @param methodsFlag
-     * @param objs
+     * @param methodsFlag boolean
+     * @param objs        List
      * @param methodNames 【methods.length==1:key:默认为 getSn,value:Object;methods.length!=1:key:默认为 getSn,value:默认为 getCode】
      * @return key:默认为 getSn,value:Object
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @author : Jerry xu
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      * @version : 1.0
      * @since : 2016/7/11 16：00
      */
@@ -132,7 +130,7 @@ public class ModelUtils {
         }
         Map<String, Object> map = new TreeMap<String, Object>();
         for (Object obj : objs) {
-            Class<? extends Object> cls = obj.getClass();
+            Class<?> cls = obj.getClass();
             if (null != methodNames && methodNames.length == 1) {
                 Method getSnMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methodNames[0]) ? methodNames[0].trim() : "getSn");
                 String sn = getSnMtd.invoke(obj).toString();
@@ -140,13 +138,15 @@ public class ModelUtils {
                     map.put(sn.trim(), obj);
                 }
             } else {
-                Method getSnMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methodNames[0]) ? methodNames[0].trim() : "getSn");
-                Method getCodeMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methodNames[1]) ? methodNames[1].trim() : "getCode");
-                String sn = getSnMtd.invoke(obj).toString();
-                Object code = getCodeMtd.invoke(obj);
-
-                if (StringUtils.isNotBlank(sn) && null != code) {
-                    map.put(sn.trim(), code);
+                Method getSnMtd;
+                if (methodNames != null) {
+                    getSnMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methodNames[0]) ? methodNames[0].trim() : "getSn");
+                    Method getCodeMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methodNames[1]) ? methodNames[1].trim() : "getCode");
+                    String sn = getSnMtd.invoke(obj).toString();
+                    Object code = getCodeMtd.invoke(obj);
+                    if (StringUtils.isNotBlank(sn) && null != code) {
+                        map.put(sn.trim(), code);
+                    }
                 }
             }
         }
@@ -160,11 +160,9 @@ public class ModelUtils {
      * @param lists      List集合
      * @param methodName 默认为 getSn
      * @return key:默认为 getSn,value:T
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @Description:
-     * @author wentaoxiang 2016年7月11日 下午4:00:28
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      */
     public static <T> Map<String, T> getMapByListOneMtd(List<T> lists, String methodName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         boolean methodsFlag = false;
@@ -178,15 +176,14 @@ public class ModelUtils {
     /**
      * 转成map
      *
-     * @param methodsFlag
-     * @param objs
-     * @param 默认为         getSn
-     * @return key:默认为 getSn,value:T
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @Description:
-     * @author wentaoxiang 2016年7月11日 下午4:00:02
+     * @param methodsFlag boolean
+     * @param objs        List
+     * @param methodName  methodName
+     * @param <T>         T
+     * @return Map 默认为 getSn,value:T
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      */
     private static <T> Map<String, T> getMapInfoOneMtd(boolean methodsFlag, List<T> objs, String methodName)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -208,16 +205,12 @@ public class ModelUtils {
     /**
      * 将list转成数据字典vo
      *
-     * @param list
+     * @param dicts   List
      * @param methods 枚举方法数组【默认为 getCode,getName,getRemark】
-     * @return
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     * @Description:
-     * @author wentaoxiang 2016年5月8日 下午7:12:24
+     * @return List
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      */
     public static List<DictionaryVo> convertDictionaryVo(List<?> dicts, String... methods) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         List<DictionaryVo> dictVos = null;
@@ -230,14 +223,12 @@ public class ModelUtils {
     /**
      * 设置数据字典vo
      *
-     * @param objs
+     * @param objs    Object
      * @param methods 方法名称数组
-     * @return
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @Description:
-     * @author wentaoxiang 2016年5月8日 下午9:24:53
+     * @return List
+     * @throws NoSuchMethodException     异常
+     * @throws IllegalAccessException    异常
+     * @throws InvocationTargetException 异常
      */
     private static List<DictionaryVo> setDictionaryVoInfo(Object[] objs, String... methods)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -248,7 +239,7 @@ public class ModelUtils {
 
         List<DictionaryVo> dicts = new ArrayList<DictionaryVo>();
         for (Object obj : objs) {
-            Class<? extends Object> cls = obj.getClass();
+            Class<?> cls = obj.getClass();
             Method getCodeMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methods[0]) ? methods[0].trim() : "getCode");
             Method getNameMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methods[1]) ? methods[1].trim() : "getName");
 
@@ -256,12 +247,14 @@ public class ModelUtils {
             try {
                 getRemarkMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methods[2]) ? methods[2].trim() : "getRemark");
             } catch (Exception e) {
+                e.printStackTrace();
             }
 
             Method getSnMtd = null;
             try {
                 getSnMtd = cls.getMethod(methodsFlag && StringUtils.isNotBlank(methods[3]) ? methods[3].trim() : "getSn");
             } catch (Exception e) {
+                e.printStackTrace();
             }
 
             String code = getCodeMtd.invoke(obj).toString();
@@ -283,34 +276,44 @@ public class ModelUtils {
     }
 
     /**
-     * 通过枚举的类名取得枚举的值，例如  ModelUtils.getEnumByClassName("com.mhome.order.enms.CstatusEnum")---> [{"sn":"re_handing","status":200,"name":"意向处理中"},{"sn":"re_handing","status":200,"name":"意向处理中"},{"sn":"re_handing","status":200,"name":"意向处理中"},{"sn":"re_close","status":201,"name":"意向关闭"},{"sn":"re_close","status":201,"name":"意向关闭"},{"sn":"re_close","status":201,"name":"意向关闭"},{"sn":"order_handing","status":202,"name":"订单处理中"},{"sn":"order_handing","status":202,"name":"订单处理中"},{"sn":"order_handing","status":202,"name":"订单处理中"},{"sn":"order_close","status":203,"name":"订单关闭"},{"sn":"order_close","status":203,"name":"订单关闭"},{"sn":"order_close","status":203,"name":"订单关闭"},{"sn":"contr_sign","status":204,"name":"合同签订"},{"sn":"contr_sign","status":204,"name":"合同签订"},{"sn":"contr_sign","status":204,"name":"合同签订"},{"sn":"contr_cutout","status":205,"name":"合同终止"},{"sn":"contr_cutout","status":205,"name":"合同终止"},{"sn":"contr_cutout","status":205,"name":"合同终止"},{"sn":"pro_wstart","status":206,"name":"项目待开工"},{"sn":"pro_wstart","status":206,"name":"项目待开工"},{"sn":"pro_wstart","status":206,"name":"项目待开工"},{"sn":"pro_ing","status":207,"name":"项目施工中"},{"sn":"pro_ing","status":207,"name":"项目施工中"},{"sn":"pro_ing","status":207,"name":"项目施工中"},{"sn":"pro_suspend","status":208,"name":"项目暂停"},{"sn":"pro_suspend","status":208,"name":"项目暂停"},{"sn":"pro_suspend","status":208,"name":"项目暂停"},{"sn":"pro_cutout","status":209,"name":"项目终止"},{"sn":"pro_cutout","status":209,"name":"项目终止"},{"sn":"pro_cutout","status":209,"name":"项目终止"},{"sn":"pro_finish","status":210,"name":"项目竣工"},{"sn":"pro_finish","status":210,"name":"项目竣工"},{"sn":"pro_finish","status":210,"name":"项目竣工"}]
+     * 通过枚举的类名取得枚举的值
+     * <p>例如  ModelUtils.getEnumByClassName("com.xxx")--->
+     * [{"sn":"re_handing","status":200,"name":"意向处理中"},
+     * {"sn":"re_close","status":201,"name":"意向关闭"},
+     * {"sn":"order_handing","status":202,"name":"订单处理中"},
+     * {"sn":"order_close","status":203,"name":"订单关闭"},
+     * {"sn":"contr_sign","status":204,"name":"合同签订"},
+     * {"sn":"contr_cutout","status":205,"name":"合同终止"},
+     * {"sn":"pro_wstart","status":206,"name":"项目待开工"},
+     * {"sn":"pro_ing","status":207,"name":"项目施工中"},
+     * {"sn":"pro_suspend","status":208,"name":"项目暂停"},
+     * {"sn":"pro_cutout","status":209,"name":"项目终止"},
+     * {"sn":"pro_finish","status":210,"name":"项目竣工"}]</p>
      *
-     * @param className
-     * @return
-     * @throws ClassNotFoundException
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     * @Description:
-     * @author wentaoxiang 2016年9月10日 下午5:23:56
+     * @param className className
+     * @return List
+     * @throws ClassNotFoundException    异常
+     * @throws NoSuchMethodException     异常
+     * @throws SecurityException         异常
+     * @throws IllegalAccessException    异常
+     * @throws IllegalArgumentException  异常
+     * @throws InvocationTargetException 异常
      */
     public static List<Map<String, Object>> getEnumByClassName(String className)
             throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Class<?> cls = Class.forName(className);
         Method valuesMTd = cls.getMethod("values");
         Object[] objs = (Object[]) valuesMTd.invoke(cls);
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> list = new ArrayList<>();
         for (Object obj : objs) {
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             for (Method me : cls.getDeclaredMethods()) {
-                String mtdname = me.getName();
-                if (mtdname.startsWith("get")) {
+                String mtdName = me.getName();
+                if (mtdName.startsWith("get")) {
                     try {
-                        Method mtd = obj.getClass().getMethod(mtdname);
+                        Method mtd = obj.getClass().getMethod(mtdName);
                         Object oj = mtd.invoke(obj);
-                        map.put(StringUtils.uncapitalize(mtdname.substring(3)), oj);
+                        map.put(StringUtils.uncapitalize(mtdName.substring(3)), oj);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -324,17 +327,16 @@ public class ModelUtils {
     /**
      * 将list封装树形结构
      *
-     * @param list
-     * @param param
-     * @return
-     * @throws NoSuchFieldException
-     * @throws SecurityException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @Description:
-     * @author wentaoxiang 2016年12月31日 下午9:48:00
+     * @param list  List
+     * @param param WrapperTreeVo
+     * @return List
+     * @throws NoSuchFieldException     异常
+     * @throws SecurityException        异常
+     * @throws IllegalArgumentException 异常
+     * @throws IllegalAccessException   异常
      */
-    public static <T> List<T> wrapperTree(List<T> list, WrapperTreeVo param) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public static <T> List<T> wrapperTree(List<T> list, WrapperTreeVo param) throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException {
         //long t1 = System.currentTimeMillis();
         DateTime begin = null;
         if (logger.isDebugEnabled()) {
@@ -364,7 +366,7 @@ public class ModelUtils {
         Map<String, T> map = new HashMap<String, T>();
         for (T obj : list) map.put((String) fdKey.get(obj), obj);
 
-        List<T> listTemp = new ArrayList<T>();
+        List<T> listTemp = new ArrayList<>();
         int i = 0;
         while (i < list.size()) {
             T obj = list.get(i);
@@ -374,7 +376,7 @@ public class ModelUtils {
                 @SuppressWarnings("unchecked")
                 List<T> children = (List<T>) fdChildrenKey.get(parentObj);
                 if (CollectionUtils.isEmpty(children))
-                    children = new ArrayList<T>();
+                    children = new ArrayList<>();
                 children.add(obj);
 
                 fdChildrenKey.set(parentObj, children);

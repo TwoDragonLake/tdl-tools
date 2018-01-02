@@ -84,7 +84,7 @@ public class DateUtils {
 
     public static List<String> getDaysByWeek(Date date)
             throws Exception {
-        date = DateUtils.getdate(DateUtils.format1(date));
+        date = DateUtils.getDate(DateUtils.format1(date));
         List<String> days = new ArrayList<String>();
         GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
         gcLast.setTime(date);
@@ -105,7 +105,7 @@ public class DateUtils {
     public static Date getNextWeek(Date date, int count) {
         Calendar strDate = Calendar.getInstance();
         strDate.setTime(date);
-        strDate.add(strDate.DATE, count * 7);
+        strDate.add(Calendar.DATE, count * 7);
         GregorianCalendar currentDate = new GregorianCalendar();
         currentDate.set(strDate.get(Calendar.YEAR),
                 strDate.get(Calendar.MONTH), strDate.get(Calendar.DATE));
@@ -344,10 +344,10 @@ public class DateUtils {
      * @since : 2016/5/11 14:15
      */
     public static Long diffDateTime(Date date, Date date1) {
-        return (Long) ((getMillis(date) - getMillis(date1)) / 1000);
+        return (getMillis(date) - getMillis(date1)) / 1000;
     }
 
-    public static Date getdate(String date) throws Exception {
+    public static Date getDate(String date) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.parse(date);
     }

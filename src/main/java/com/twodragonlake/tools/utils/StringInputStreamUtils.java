@@ -39,8 +39,8 @@ public class StringInputStreamUtils {
     /**
      * 换行输出
      *
-     * @param is
-     * @return
+     * @param is InputStream
+     * @return String
      * @author bruce.liu
      */
     public static String inputStreamToString(InputStream is) {
@@ -66,8 +66,8 @@ public class StringInputStreamUtils {
     /**
      * 换行输出
      *
-     * @param is
-     * @return
+     * @param is InputStream
+     * @return String
      * @author bruce.liu
      */
     public static String inputStreamToString1(InputStream is) {
@@ -93,9 +93,9 @@ public class StringInputStreamUtils {
     /**
      * 原样输出
      *
-     * @param in
-     * @return
-     * @throws IOException
+     * @param in InputStream
+     * @return String
+     * @throws IOException 异常
      */
     public static String inputStreamToString2(InputStream in) throws IOException {
         StringBuilder out = new StringBuilder();
@@ -109,9 +109,9 @@ public class StringInputStreamUtils {
     /**
      * 原样输出
      *
-     * @param is
-     * @return
-     * @throws IOException
+     * @param is InputStream
+     * @return String
+     * @throws IOException 异常
      * @author bruce.liu
      */
     public static String inputStreamToString3(InputStream is) throws IOException {

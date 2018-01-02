@@ -34,17 +34,15 @@ public class StringConvertUtils {
     /**
      * 将"1,2,3,4,5..."这种形式的字符串转成"'1','2','3','4'..."这种形式
      *
-     * @param strs
-     * @return
-     * @Description:
-     * @author wentaoxiang 2016年4月5日 下午5:03:36
+     * @param strs strs
+     * @return String
      */
     public static String converString(String strs) {
         if (StringUtils.isNotBlank(strs)) {
-            String[] idStrs = strs.trim().split(",");
-            if (idStrs.length > 0) {
+            String[] idStr = strs.trim().split(",");
+            if (idStr.length > 0) {
                 StringBuilder sbf = new StringBuilder("");
-                for (String str : idStrs) {
+                for (String str : idStr) {
                     if (StringUtils.isNotBlank(str)) {
                         sbf.append("'").append(str.trim()).append("'").append(",");
                     }
@@ -61,10 +59,8 @@ public class StringConvertUtils {
     /**
      * 将"1,2,3,4,5..."这种形式的字符串转成"1,2,3,4..."这种形式
      *
-     * @param strs
-     * @return
-     * @Description:
-     * @author wentaoxiang 2016年4月5日 下午5:03:36
+     * @param strs strs
+     * @return String
      */
     public static String converStringTwo(String strs) {
         if (StringUtils.isNotBlank(strs)) {
@@ -88,23 +84,21 @@ public class StringConvertUtils {
     /**
      * 将"1,2,3,4,5..."这种形式的字符串转成List<String> 集合
      *
-     * @param strs
-     * @return
-     * @Description:
-     * @author wentaoxiang 2016年4月5日 下午5:03:29
+     * @param strs strs
+     * @return List
      */
     public static List<String> converStringToList(String strs) {
         if (StringUtils.isNotBlank(strs)) {
-            String[] idStrs = strs.trim().split(",");
-            if (idStrs.length > 0) {
-                List<String> strsList = new ArrayList<String>();
-                for (String str : idStrs) {
+            String[] idStr = strs.trim().split(",");
+            if (idStr.length > 0) {
+                List<String> strList = new ArrayList<String>();
+                for (String str : idStr) {
                     if (StringUtils.isNotBlank(str)) {
-                        strsList.add(str.trim());
+                        strList.add(str.trim());
                     }
                 }
-                if (strsList.size() > 0) {
-                    return strsList;
+                if (strList.size() > 0) {
+                    return strList;
                 }
             }
         }
@@ -114,10 +108,8 @@ public class StringConvertUtils {
     /**
      * 将"1,2,3,4,5..."这种形式的字符串转成List<Integer> 集合
      *
-     * @param strs
-     * @return
-     * @Description:
-     * @author wentaoxiang 2016年4月5日 下午5:03:29
+     * @param strs strs
+     * @return List
      */
     public static List<Integer> converStringToIntegerList(String strs) {
         if (StringUtils.isNotBlank(strs)) {
@@ -140,19 +132,17 @@ public class StringConvertUtils {
     /**
      * 将list 转换为 '1','2','3','4','5','6'
      *
-     * @param strlist
-     * @return
-     * @Description:
-     * @author wangzequan 2016 上午11:21:27
+     * @param strList List
+     * @return String
      */
-    public static String convertListToString(List<String> strlist) {
+    public static String convertListToString(List<String> strList) {
         StringBuilder sb = new StringBuilder();
-        if (CollectionUtils.isNotEmpty(strlist)) {
-            for (int i = 0; i < strlist.size(); i++) {
+        if (CollectionUtils.isNotEmpty(strList)) {
+            for (int i = 0; i < strList.size(); i++) {
                 if (i == 0) {
-                    sb.append("'").append(strlist.get(i)).append("'");
+                    sb.append("'").append(strList.get(i)).append("'");
                 } else {
-                    sb.append(",").append("'").append(strlist.get(i)).append("'");
+                    sb.append(",").append("'").append(strList.get(i)).append("'");
                 }
             }
         }

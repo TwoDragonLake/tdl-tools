@@ -66,7 +66,7 @@ public class GsonUtils {
         return GsonUtils.getGson().fromJson(json, clazz);
     }
 
-    private static Gson getGson() {
+    public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("yyyy-MM-dd HH:mm:ss");
         gsonBuilder.registerTypeAdapter(Timestamp.class, new TimestampTypeAdapter());

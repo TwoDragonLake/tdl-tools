@@ -39,7 +39,7 @@ public class ServletContextUtils implements ServletContextAware {
     /**
      * 得到ServletContext
      *
-     * @return
+     * @return ServletContext
      */
     public static ServletContext getServletContext() {
         return servletContext;
@@ -48,8 +48,8 @@ public class ServletContextUtils implements ServletContextAware {
     /**
      * 得到servletContext中的对象
      *
-     * @param name
-     * @return
+     * @param name name
+     * @return Object
      */
     public static Object getAppObject(String name) {
         if (servletContext != null) {
