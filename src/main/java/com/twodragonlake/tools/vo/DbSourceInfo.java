@@ -25,7 +25,7 @@ import java.io.Serializable;
  * @version : 1.0
  * @since : 2016/8/28 14:15
  */
-public class DBSourceInfo extends BaseModelVo implements Serializable {
+public class DbSourceInfo extends BaseModelVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String id;

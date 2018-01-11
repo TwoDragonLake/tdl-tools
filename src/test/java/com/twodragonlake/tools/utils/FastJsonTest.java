@@ -16,15 +16,16 @@
 
 package com.twodragonlake.tools.utils;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.twodragonlake.tools.vo.DBSourceInfo;
-import com.twodragonlake.tools.vo.PagerModelVo;
+import java.text.ParseException;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.util.Date;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.twodragonlake.tools.vo.DbSourceInfo;
+import com.twodragonlake.tools.vo.PagerModelVo;
 
 /**
  * FastJson测试用例.
@@ -40,13 +41,13 @@ public class FastJsonTest {
     @Test
     public void Test() throws ParseException {
 
-        DBSourceInfo db = new DBSourceInfo();
+        DbSourceInfo db = new DbSourceInfo();
         db.setCreateTime(new Date());
         db.setDelFlag(null);
         logger.info(JSON.toJSONString(db, SerializerFeature.DisableCircularReferenceDetect));//输出{"createTime":"2016-09-23 16:12:43","delFlag":1}
         logger.info(JSON.toJSONString(db, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty));
         //输出{"createTime":"2016-09-23 16:12:43","creator":null,"dbName":null,"delFlag":1,"driverClass":null,"id":null,"ip":null,"isCommon":null,"password":null,"port":null,"updateTime":null,"updator":null,"userId":null,"userName":null}
-        PagerModelVo<DBSourceInfo> pm = new PagerModelVo<DBSourceInfo>();
+        PagerModelVo<DbSourceInfo> pm = new PagerModelVo<DbSourceInfo>();
         logger.info(JSON.toJSONString(pm, SerializerFeature.DisableCircularReferenceDetect));
         logger.info(JSON.toJSONString(pm, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty));
     }
