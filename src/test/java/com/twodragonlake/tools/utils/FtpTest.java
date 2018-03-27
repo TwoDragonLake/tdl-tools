@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package com.twodragonlake.tools.utils;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.io.File;
@@ -33,12 +32,10 @@ import java.io.InputStream;
  */
 public class FtpTest {
 
-    private static final Logger logger = Logger.getLogger(FtpTest.class);
-
     @Test
     public void Test() throws Exception {
 
-        logger.info("获取文件地址：" + FilePartUtils.getFilePath("/prdct/imgs/"));
+        System.out.println("获取文件地址：" + FilePartUtils.getFilePath("/prdct/imgs/"));
 
         FtpUtils packer = new FtpUtils("10.10.20.204", "wen", "wen1", 21);
 

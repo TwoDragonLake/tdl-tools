@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package com.twodragonlake.tools.utils;
 
 import com.twodragonlake.tools.vo.CommonTreeVo;
 import com.twodragonlake.tools.vo.WrapperTreeVo;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,13 +32,11 @@ import java.util.List;
  */
 public class ModelTest {
 
-    private static final Logger logger = Logger.getLogger(ModelTest.class);
-
     @Test
     public void Test() throws Exception {
 
         //list封装成tree---start
-        List<CommonTreeVo> list = new ArrayList<CommonTreeVo>();
+        List<CommonTreeVo> list = new ArrayList<>();
 
         CommonTreeVo root = new CommonTreeVo();
         root.setId("0");
@@ -87,7 +84,7 @@ public class ModelTest {
         param.setParentKey("pid");
         param.setChildrenKey("children");
 
-        logger.info("封装树前：" + GsonUtils.toJson(list));
-        logger.info("封装树后：" + GsonUtils.toJson(ModelUtils.wrapperTree(list, param)));
+        System.out.println("封装树前：" + GsonUtils.toJson(list));
+        System.out.println("封装树后：" + GsonUtils.toJson(ModelUtils.wrapperTree(list, param)));
     }
 }

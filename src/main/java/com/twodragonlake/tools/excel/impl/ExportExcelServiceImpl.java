@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,12 @@
 
 package com.twodragonlake.tools.excel.impl;
 
-import com.twodragonlake.tools.vo.ExportExcelCommonVo;
 import com.twodragonlake.tools.excel.IExportExcelCallBackService;
 import com.twodragonlake.tools.excel.IExportExcelService;
+import com.twodragonlake.tools.vo.ExportExcelCommonVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -43,8 +42,6 @@ import java.util.Map;
  */
 @Service
 public class ExportExcelServiceImpl implements IExportExcelService {
-
-    private static final Logger logger = Logger.getLogger(ExportExcelServiceImpl.class);
 
     @Override
     public <T> void exportExcel(IExportExcelCallBackService exportExcelCallBackService, ExportExcelCommonVo exportExcelCommonVo,
@@ -95,12 +92,11 @@ public class ExportExcelServiceImpl implements IExportExcelService {
         response.setHeader("Content-disposition", "attachment; filename=" + exportExcelCommonVo.getExcelFileName());
         ServletOutputStream outputStream = null;
 
-        // TODO: 2017/12/27 需要优化
         try {
             outputStream = response.getOutputStream();
             wb.write(outputStream);
         } catch (IOException e) {
-            logger.warn("导出模板出错" + e);
+            System.out.println("导出模板出错" + e);
             throw e;
         } finally {
             try {
@@ -109,7 +105,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
                 }
                 exportExcelCallBackService.successCallBack(paramOnSuccess);
             } catch (IOException e) {
-                logger.warn("flush stream fails" + e);
+                System.out.println("flush stream fails" + e);
                 throw e;
             }
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package com.twodragonlake.tools.utils;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -30,13 +29,11 @@ import java.util.Arrays;
  */
 public class IPTest {
 
-    private static final Logger logger = Logger.getLogger(IPTest.class);
-
     @Test
-    public void Test() throws Exception {
-        logger.info("getMacAddr:" + IPUtils.getMacAddr());
-        logger.info("getMacAddress:" + IPUtils.getMacAddress());
-        logger.info("getLocalIP:" + IPUtils.getLocalIP());
-        logger.info("getAllLocalHostIP:" + Arrays.toString(IPUtils.getAllLocalHostIP()));
+    public void Test() {
+        System.out.println("getMacAddr:" + IPUtils.getMacAddr());
+        System.out.println("getMacAddress:" + IPUtils.getMacAddress());
+        System.out.println("getLocalIP:" + IPUtils.getLocalIP());
+        System.out.println("getAllLocalHostIP:" + Arrays.toString(IPUtils.getAllLocalHostIP()));
     }
 }

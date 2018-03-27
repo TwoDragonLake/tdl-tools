@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@ public class DateUtils {
     public static List<String> getDaysByWeek(Date date)
             throws Exception {
         date = DateUtils.getDate(DateUtils.format1(date));
-        List<String> days = new ArrayList<String>();
+        List<String> days = new ArrayList<>();
         GregorianCalendar gcLast = (GregorianCalendar) Calendar.getInstance();
         gcLast.setTime(date);
         String firstWeek = DateUtils.getFirstWeekDay(date);

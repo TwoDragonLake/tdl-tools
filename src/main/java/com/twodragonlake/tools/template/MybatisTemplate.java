@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,19 +172,19 @@ public abstract class MybatisTemplate {
         PageBounds pageBounds = new PageBounds(queryVo.getPageNumber(), queryVo.getPageSize());
         //添加排序
         this.setOrderInfo(queryVo.getSqlOrderBy(), pageBounds);
-        List<T> datas = (List<T>) sqlSessionTemplate.selectList(dataSql, params, pageBounds);
+        List<T> datas = sqlSessionTemplate.selectList(dataSql, params, pageBounds);
         PageList<T> pageList = (PageList<T>) datas;
         // 获得结果集条总数
         int count = pageList.getPaginator().getTotalCount();
-        return new PagerModelVo<T>(count, datas);
+        return new PagerModelVo<>(count, datas);
     }
 
 
     // 设置排序信息
     private void setOrderInfo(Map<String, ORDERLY> orderBy, PageBounds pageBounds) {
-        List<Order> orders = null;
+        List<Order> orders;
         if (orderBy != null && orderBy.size() > 0) {
-            orders = new ArrayList<Order>();
+            orders = new ArrayList<>();
             for (Entry<String, ORDERLY> order : orderBy.entrySet()) {
                 orders.add(Order.create(order.getKey(), order.getValue().toString()));
             }

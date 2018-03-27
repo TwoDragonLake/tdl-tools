@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The TwoDragonLake Open Source Project
+ * Copyright (C) 2018 The TwoDragonLake Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,8 @@ import java.util.List;
 public class ImportCommonServiceImpl implements IImportCommonService {
 
     @Override
-    public <T> void importExcel(MultipartFile file, ImportParameterVo<T> param, ImportExcelCallBack callback, Object... customParams) throws Exception {
+    public <T> void importExcel(MultipartFile file, ImportParameterVo<T> param,
+                                ImportExcelCallBack callback, Object... customParams) throws Exception {
         if (file == null) {
             throw new Exception("file参数不能为空");
         }
@@ -61,31 +62,38 @@ public class ImportCommonServiceImpl implements IImportCommonService {
         }
     }
 
-    private <T> List<T> readReport(InputStream inp, ImportParameterVo<T> param, ImportExcelCallBack callback, Object... customParams) throws Exception {
-        List<T> listTs = new ArrayList<T>();
+    private <T> List<T> readReport(InputStream inp, ImportParameterVo<T> param,
+                                   ImportExcelCallBack callback, Object... customParams) throws Exception {
+        List<T> listTs = new ArrayList<>();
         try {
             String cellStr = null;
             Workbook wb = WorkbookFactory.create(inp);
-            Sheet sheet = wb.getSheetAt(0);// 取得第一个sheets 
+            // 取得第一个sheets
+            Sheet sheet = wb.getSheetAt(0);
             if (sheet.getLastRowNum() < 1) {
                 throw new Exception("该excel文件没有可以导入的数据");
             }
-            ImportParameterVo<T> tempParam = new ImportParameterVo<T>();
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) {//从第二行开始读取数据
+            ImportParameterVo<T> tempParam = new ImportParameterVo<>();
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                // 从第二行开始读取数据
                 T addT = (T) param.getObj().getClass().newInstance();
-                Row row = sheet.getRow(i);// 获取行(row)对象
+                // 获取行(row)对象
+                Row row = sheet.getRow(i);
                 if (row == null) {
                     continue;
                 }
                 for (int j = 0; j < row.getLastCellNum(); j++) {
                     try {
-                        Cell cell = row.getCell(j); // 获得单元格(cell)对象
-                        if (cell != null) {//防止Excel中某些栏位为空直接报空指针异常
-                            cellStr = ConvertCellStr(cell, cellStr);// 转换接收的单元格
+                        // 获得单元格(cell)对象
+                        Cell cell = row.getCell(j);
+                        // 防止Excel中某些栏位为空直接报空指针异常
+                        if (cell != null) {
+                            // 转换接收的单元格
+                            cellStr = convertCellStr(cell, cellStr);
                         } else {
                             cellStr = "";
                         }
-                        //去空格
+                        // 去空格
                         if (StringUtils.isNotBlank(cellStr)) {
                             cellStr = cellStr.trim();
                         }
@@ -93,7 +101,8 @@ public class ImportCommonServiceImpl implements IImportCommonService {
                         tempParam.setCol(j);
                         tempParam.setCellStr(cellStr);
                         tempParam.setObj(addT);
-                        this.addT(tempParam, callback, customParams);//将单元格的数据添加至一个对象
+                        // 将单元格的数据添加至一个对象
+                        this.addT(tempParam, callback, customParams);
                         cellStr = null;
                     } catch (Exception e) {
                         throw new Exception("导入报表时第" + (i + 1) + "行第" + (j + 1) + "列报错" + e.getMessage());
@@ -123,30 +132,29 @@ public class ImportCommonServiceImpl implements IImportCommonService {
      * @version : 1.0
      * @since : 2016/3/2 15:01
      */
-    private String ConvertCellStr(Cell cell, String cellStr) {
+    private String convertCellStr(Cell cell, String cellStr) {
         DecimalFormat df = new DecimalFormat("0");
-        switch (cell.getCellType()) {
-            case Cell.CELL_TYPE_STRING:
-                cellStr = cell.getStringCellValue();// 读取String
-                break;
-            case Cell.CELL_TYPE_BOOLEAN:
-                cellStr = String.valueOf(cell.getBooleanCellValue());//得到Boolean对象的方法
-                break;
-            case Cell.CELL_TYPE_NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {// 先看是否是日期格式
-                    cellStr = cell.getDateCellValue().toString();//读取日期格式
+        if (cell.getCellTypeEnum() == CellType.STRING) {
+            cellStr = cell.getStringCellValue();
+        } else if (cell.getCellTypeEnum() == CellType.BOOLEAN) {
+            cellStr = String.valueOf(cell.getBooleanCellValue());
+        } else if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+            // 先看是否是日期格式
+            if (DateUtil.isCellDateFormatted(cell)) {
+                // 读取日期格式
+                cellStr = cell.getDateCellValue().toString();
+            } else {
+                String strCell = String.valueOf(cell.getNumericCellValue());
+                String keyPre = ".";
+                if (keyPre.equals(strCell)) {
+                    cellStr = String.valueOf(new BigDecimal(String.valueOf(cell.getNumericCellValue())));
                 } else {
-                    String strCell = String.valueOf(cell.getNumericCellValue());
-                    if (strCell.indexOf(".") != -1) {
-                        cellStr = String.valueOf(new BigDecimal(String.valueOf(cell.getNumericCellValue())));
-                    } else {
-                        cellStr = String.valueOf(df.format(cell.getNumericCellValue()));//读取数字
-                    }
+                    // 读取数字
+                    cellStr = String.valueOf(df.format(cell.getNumericCellValue()));
                 }
-                break;
-            case Cell.CELL_TYPE_FORMULA:
-                cellStr = String.valueOf(cell.getNumericCellValue());
-                break;
+            }
+        } else if (cell.getCellTypeEnum() == CellType.FORMULA) {
+            cellStr = String.valueOf(cell.getNumericCellValue());
         }
         return cellStr;
     }
@@ -163,7 +171,8 @@ public class ImportCommonServiceImpl implements IImportCommonService {
      * @version : 1.0
      * @since : 2016/3/2 15:01
      */
-    private <T> void addT(ImportParameterVo<T> param, ImportExcelCallBack callback, Object... customParams) throws Exception {
+    private <T> void addT(ImportParameterVo<T> param, ImportExcelCallBack callback,
+                          Object... customParams) throws Exception {
         if (callback != null) {
             callback.validCallback(param, customParams);
         }
