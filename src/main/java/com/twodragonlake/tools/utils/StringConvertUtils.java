@@ -73,7 +73,7 @@ public class StringConvertUtils {
                     }
                 }
                 if (sbf.length() > 0) {
-                    sbf = sbf.deleteCharAt(sbf.length() - 1);
+                    sbf.deleteCharAt(sbf.length() - 1);
                     return sbf.toString();
                 }
             }
@@ -82,7 +82,7 @@ public class StringConvertUtils {
     }
 
     /**
-     * 将"1,2,3,4,5..."这种形式的字符串转成List<String> 集合
+     * 将"1,2,3,4,5..."这种形式的字符串转成集合
      *
      * @param strs strs
      * @return List
@@ -106,7 +106,7 @@ public class StringConvertUtils {
     }
 
     /**
-     * 将"1,2,3,4,5..."这种形式的字符串转成List<Integer> 集合
+     * 将"1,2,3,4,5..."这种形式的字符串转成集合
      *
      * @param strs strs
      * @return List

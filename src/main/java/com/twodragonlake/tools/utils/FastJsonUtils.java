@@ -30,12 +30,9 @@ public class FastJsonUtils {
 
     /**
      * 对象转成json
-     *
      * @param t 泛型
+     * @param <T> 泛型
      * @return json字符串
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     public static <T> String objectToJson(T t) {
         return JSON.toJSONString(t, SerializerFeature.DisableCircularReferenceDetect);
@@ -72,9 +69,6 @@ public class FastJsonUtils {
      * @param t    对象实体
      * @param <T>  泛型
      * @return 对象
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     public static <T> T jsonToObject(String json, Class<T> t) {
         return JSON.parseObject(json, t);

@@ -29,14 +29,14 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IImportCommonService {
 
     /**
+     * 导入 Excel
+     *
      * @param file         导入的excel文件
      * @param param        参数里面的obj属性必填，用来映射excel文件内容的实体类
      * @param callback     回调接口
      * @param customParams 用户自定义对象，用于程序扩展，怎样传入，回调的时候怎样传回，不做处理
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/11/12 15:52
+     * @param <T>          T
+     * @throws Exception Exception
      */
     <T> void importExcel(MultipartFile file, ImportParameterVo<T> param, ImportExcelCallBack callback, Object... customParams) throws Exception;
 }

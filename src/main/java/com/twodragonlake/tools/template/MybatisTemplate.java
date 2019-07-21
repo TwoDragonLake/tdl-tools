@@ -119,10 +119,8 @@ public abstract class MybatisTemplate {
      * @param params    参数
      * @param statement sql
      * @param orderBy   排序的map key是列名，value是desc或者asc
+     * @param <E>       E
      * @return List
-     * @author bruce.liu
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
      */
     @SuppressWarnings("unchecked")
     protected <E> List<E> selectList(String statement, Object params, Map<String, ORDERLY> orderBy) {
@@ -140,10 +138,8 @@ public abstract class MybatisTemplate {
      * @param statement 声明
      * @param params    参数
      * @param queryVo   查询实体
+     * @param <E>       E
      * @return List
-     * @author bruce.liu
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
      */
     @SuppressWarnings("unchecked")
     protected <E> List<E> getPagerModelListByQuery(String statement, Object params, QueryVo queryVo) {
@@ -163,11 +159,7 @@ public abstract class MybatisTemplate {
      * @param dataSql 数据集sql
      * @param <T>     泛型
      * @return 实体
-     * @author bruce.liu
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
      */
-    @SuppressWarnings("unchecked")
     protected <T> PagerModelVo<T> getPagerModelByQuery(Object params, QueryVo queryVo, String dataSql) {
         PageBounds pageBounds = new PageBounds(queryVo.getPageNumber(), queryVo.getPageSize());
         //添加排序
@@ -180,7 +172,12 @@ public abstract class MybatisTemplate {
     }
 
 
-    // 设置排序信息
+    /**
+     * 设置排序信息
+     *
+     * @param orderBy    orderBy
+     * @param pageBounds pageBounds
+     */
     private void setOrderInfo(Map<String, ORDERLY> orderBy, PageBounds pageBounds) {
         List<Order> orders;
         if (orderBy != null && orderBy.size() > 0) {

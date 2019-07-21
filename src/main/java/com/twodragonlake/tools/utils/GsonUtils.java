@@ -60,6 +60,10 @@ public class GsonUtils {
 
     /**
      * 字符串转为对象
+     *
+     * @param json  json
+     * @param clazz clazz
+     * @return Object
      */
     @SuppressWarnings("unchecked")
     public static Object jsonToObj(String json, @SuppressWarnings("rawtypes") Class clazz) {
@@ -75,18 +79,20 @@ public class GsonUtils {
 
     /**
      * 对象转发成json
+     *
+     * @param obj Object
+     * @return string
      */
     public static String toJson(Object obj) {
         return getGson().toJson(obj);
     }
 
     /**
-     * 【当使用gson-1.4的时候使用这个方法转成json】对象转成json，例如ReturnVo<PriUser> returnVo = new ReturnVo<PriUser>(OmsConstant.ERROR, "登入失败");...
-     * Type typeToken = new TypeToken<ReturnVo<PriUser>>(){}.getType();
-     * return GsonUtils.getGson().toJson(returnVo,typeToken);
+     * 对象转 json
      *
      * @param obj                                      Object
      * @param typeToken：如果转成json的对象包含了泛型，需要指定TypeToken
+     * @return String
      */
     public static String toJson(Object obj, Type typeToken) {
         return getGson().toJson(obj, typeToken);

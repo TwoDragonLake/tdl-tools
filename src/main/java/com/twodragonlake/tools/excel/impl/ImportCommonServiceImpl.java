@@ -41,6 +41,16 @@ import java.util.List;
 @Service
 public class ImportCommonServiceImpl implements IImportCommonService {
 
+    /**
+     * 导入 Excel
+     *
+     * @param file         导入的excel文件
+     * @param param        参数里面的obj属性必填，用来映射excel文件内容的实体类
+     * @param callback     回调接口
+     * @param customParams 用户自定义对象，用于程序扩展，怎样传入，回调的时候怎样传回，不做处理
+     * @param <T>          T
+     * @throws Exception Exception
+     */
     @Override
     public <T> void importExcel(MultipartFile file, ImportParameterVo<T> param,
                                 ImportExcelCallBack callback, Object... customParams) throws Exception {
@@ -62,6 +72,17 @@ public class ImportCommonServiceImpl implements IImportCommonService {
         }
     }
 
+    /**
+     * 读取报表
+     *
+     * @param inp          inp
+     * @param param        param
+     * @param callback     callback
+     * @param customParams customParams
+     * @param <T>          T
+     * @return List<T>
+     * @throws Exception Exception
+     */
     private <T> List<T> readReport(InputStream inp, ImportParameterVo<T> param,
                                    ImportExcelCallBack callback, Object... customParams) throws Exception {
         List<T> listTs = new ArrayList<>();
@@ -125,12 +146,9 @@ public class ImportCommonServiceImpl implements IImportCommonService {
     /**
      * 读取excel转换类型
      *
-     * @param cell
-     * @param cellStr
-     * @return
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
+     * @param cell    cell
+     * @param cellStr cellStr
+     * @return String
      */
     private String convertCellStr(Cell cell, String cellStr) {
         DecimalFormat df = new DecimalFormat("0");
@@ -162,14 +180,11 @@ public class ImportCommonServiceImpl implements IImportCommonService {
     /**
      * 对各种数据进行验证
      *
-     * @param param
-     * @param callback
-     * @param customParams
-     * @param <T>
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
+     * @param param        param
+     * @param callback     callback
+     * @param customParams customParams
+     * @param <T>          T
+     * @throws Exception Exception
      */
     private <T> void addT(ImportParameterVo<T> param, ImportExcelCallBack callback,
                           Object... customParams) throws Exception {

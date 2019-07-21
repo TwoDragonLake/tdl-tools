@@ -32,19 +32,14 @@ public interface IExportExcelService {
     /**
      * 导出Excel
      *
-     * @param exportExcelCallBackService
-     * @param exportExcelCommonVo
-     * @param response
-     * @param paramOnSuccess
-     * @param object
-     * @param <T>
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/10/11 15:52
+     * @param exportExcelCallBackService exportExcelCallBackService
+     * @param exportExcelCommonVo        exportExcelCommonVo
+     * @param response                   response
+     * @param paramOnSuccess             paramOnSuccess
+     * @param object                     object
+     * @param <T>                        T
+     * @throws Exception Exception
      */
     <T> void exportExcel(IExportExcelCallBackService exportExcelCallBackService, ExportExcelCommonVo exportExcelCommonVo, HttpServletResponse response, T paramOnSuccess, Object... object) throws Exception;
 
 }
-
-	

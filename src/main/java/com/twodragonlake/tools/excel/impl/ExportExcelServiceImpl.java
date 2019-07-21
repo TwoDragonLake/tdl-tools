@@ -43,6 +43,17 @@ import java.util.Map;
 @Service
 public class ExportExcelServiceImpl implements IExportExcelService {
 
+    /**
+     * 导出 Excel
+     *
+     * @param exportExcelCallBackService exportExcelCallBackService
+     * @param exportExcelCommonVo        exportExcelCommonVo
+     * @param response                   response
+     * @param paramOnSuccess             paramOnSuccess
+     * @param objectT                    objectT
+     * @param <T>                        T
+     * @throws Exception Exception
+     */
     @Override
     public <T> void exportExcel(IExportExcelCallBackService exportExcelCallBackService, ExportExcelCommonVo exportExcelCommonVo,
                                 HttpServletResponse response, T paramOnSuccess, Object... objectT) throws Exception {

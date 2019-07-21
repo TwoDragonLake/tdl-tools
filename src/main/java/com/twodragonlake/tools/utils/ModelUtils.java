@@ -53,7 +53,6 @@ public class ModelUtils {
      * @throws IllegalAccessException    异常
      * @throws IllegalArgumentException  异常
      * @throws InvocationTargetException 异常
-     * @author wentaoxiang 2016年5月8日 下午7:12:24
      */
     public static List<DictionaryVo> getDictsByEnum(Class<?> clas, String... methods)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -75,7 +74,6 @@ public class ModelUtils {
      * @throws IllegalAccessException    异常
      * @throws IllegalArgumentException  异常
      * @throws InvocationTargetException 异常
-     * @author wentaoxiang 2016年5月8日 下午7:12:24
      */
     public static Map<String, Object> getMapByEnum(Class<?> clas, String... methods)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -99,7 +97,6 @@ public class ModelUtils {
      * @throws NoSuchMethodException     异常
      * @throws IllegalAccessException    异常
      * @throws InvocationTargetException 异常
-     * @author wentaoxiang 2016年7月11日 下午4:00:28
      */
     public static Map<String, Object> getMapByList(List<?> lists, String... methodNames) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         boolean methodsFlag = false;
@@ -120,8 +117,6 @@ public class ModelUtils {
      * @throws NoSuchMethodException     异常
      * @throws IllegalAccessException    异常
      * @throws InvocationTargetException 异常
-     * @version : 1.0
-     * @since : 2016/7/11 16：00
      */
     private static Map<String, Object> getMapInfo(boolean methodsFlag, List<?> objs, String... methodNames)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -159,6 +154,7 @@ public class ModelUtils {
      *
      * @param lists      List集合
      * @param methodName 默认为 getSn
+     * @param <T>        T
      * @return key:默认为 getSn,value:T
      * @throws NoSuchMethodException     异常
      * @throws IllegalAccessException    异常
@@ -215,7 +211,7 @@ public class ModelUtils {
     public static List<DictionaryVo> convertDictionaryVo(List<?> dicts, String... methods) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         List<DictionaryVo> dictVos = null;
         if (CollectionUtils.isNotEmpty(dicts)) {
-            dictVos = setDictionaryVoInfo(dicts.toArray(new Object[dicts.size()]), methods);
+            dictVos = setDictionaryVoInfo(dicts.toArray(new Object[0]), methods);
         }
         return CollectionUtils.isNotEmpty(dictVos) ? dictVos : null;
     }
@@ -277,7 +273,7 @@ public class ModelUtils {
 
     /**
      * 通过枚举的类名取得枚举的值
-     * <p>例如  ModelUtils.getEnumByClassName("com.xxx")--->
+     * 例如  ModelUtils.getEnumByClassName("com.xxx")
      * [{"sn":"re_handing","status":200,"name":"意向处理中"},
      * {"sn":"re_close","status":201,"name":"意向关闭"},
      * {"sn":"order_handing","status":202,"name":"订单处理中"},
@@ -288,7 +284,7 @@ public class ModelUtils {
      * {"sn":"pro_ing","status":207,"name":"项目施工中"},
      * {"sn":"pro_suspend","status":208,"name":"项目暂停"},
      * {"sn":"pro_cutout","status":209,"name":"项目终止"},
-     * {"sn":"pro_finish","status":210,"name":"项目竣工"}]</p>
+     * {"sn":"pro_finish","status":210,"name":"项目竣工"}]
      *
      * @param className className
      * @return List
@@ -329,6 +325,7 @@ public class ModelUtils {
      *
      * @param list  List
      * @param param WrapperTreeVo
+     * @param <T> T
      * @return List
      * @throws NoSuchFieldException     异常
      * @throws SecurityException        异常
@@ -364,7 +361,9 @@ public class ModelUtils {
         fdChildrenKey.setAccessible(true);
 
         Map<String, T> map = new HashMap<String, T>();
-        for (T obj : list) map.put((String) fdKey.get(obj), obj);
+        for (T obj : list) {
+            map.put((String) fdKey.get(obj), obj);
+        }
 
         List<T> listTemp = new ArrayList<>();
         int i = 0;
@@ -375,8 +374,9 @@ public class ModelUtils {
                 T parentObj = map.get(parentTemp);
                 @SuppressWarnings("unchecked")
                 List<T> children = (List<T>) fdChildrenKey.get(parentObj);
-                if (CollectionUtils.isEmpty(children))
+                if (CollectionUtils.isEmpty(children)) {
                     children = new ArrayList<>();
+                }
                 children.add(obj);
 
                 fdChildrenKey.set(parentObj, children);

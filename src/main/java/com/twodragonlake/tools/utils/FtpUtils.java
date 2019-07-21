@@ -110,10 +110,8 @@ public class FtpUtils {
      * @param inStream 文件输入流
      * @param fileName 文件名
      * @param path     文件需要存放的路径
+     * @return boolean
      * @throws Exception 异常
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     public boolean uploadFile(InputStream inStream, String fileName, String path)
             throws Exception {
@@ -150,10 +148,8 @@ public class FtpUtils {
      *
      * @param file File
      * @param path path
+     * @return boolean
      * @throws Exception 异常
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     public boolean uploadFile(File file, String path) throws Exception {
         boolean flag = true;
@@ -194,9 +190,6 @@ public class FtpUtils {
      *
      * @param path path
      * @return boolean
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     private boolean changerToPath(String path) {
         boolean isOK = false;
@@ -221,9 +214,6 @@ public class FtpUtils {
      *
      * @param dir 路径
      * @throws Exception 异常
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     private void createDir(String dir) throws Exception {
         dir = dir.replace('\\', '/');
@@ -247,9 +237,6 @@ public class FtpUtils {
      *
      * @param dir 检查文件夹
      * @return 是/否
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/9/8 14:15
      */
     private boolean isDirExist(String dir) {
         boolean isDirExist = false;

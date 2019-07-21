@@ -33,45 +33,34 @@ public interface IExportExcelCallBackService {
     /**
      * 生成特殊的单元格（合并）
      *
-     * @param workbook
-     * @param sheetIndex
-     * @param sheet
-     * @param endTime
+     * @param workbook   workbook
+     * @param sheetIndex sheetIndex
+     * @param sheet      sheet
+     * @param endTime    endTime
      * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
      */
     void genSpacialCellCallBack(HSSFWorkbook workbook, int sheetIndex, HSSFSheet sheet, Date endTime) throws Exception;
 
     /**
      * 获取需要装载的Excel数据
      *
-     * @param cellIndex
-     * @param param
-     * @param objectOnSuccess
-     * @param <T>
-     * @return
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
+     * @param cellIndex       cellIndex
+     * @param param           param
+     * @param objectOnSuccess objectOnSuccess
+     * @param <T>             T
+     * @return String
+     * @throws Exception Exception
      */
     <T> String getExcelCellDataCallBack(int cellIndex, T param, Object... objectOnSuccess) throws Exception;
 
     /**
      * 导出成功的回调方法
      *
-     * @param paramOnSuccess
-     * @param customParamsOnSuccess
-     * @param <T>
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/3/2 15:01
+     * @param paramOnSuccess        paramOnSuccess
+     * @param customParamsOnSuccess customParamsOnSuccess
+     * @param <T>                   T
+     * @throws Exception Exception
      */
     <T> void successCallBack(T paramOnSuccess, Object... customParamsOnSuccess) throws Exception;
 
 }
-
-	

@@ -84,9 +84,9 @@ public class MD5Utils {
     /**
      * 适用于上G大的文件
      *
-     * @param file
-     * @return
-     * @throws IOException
+     * @param file file
+     * @return String
+     * @throws IOException IOException
      */
     public static String getFileMD5String(File file) throws IOException {
         FileInputStream in = new FileInputStream(file);

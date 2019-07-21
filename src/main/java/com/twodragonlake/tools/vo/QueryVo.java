@@ -23,12 +23,6 @@ import java.util.Map;
 
 /**
  * 功能描述：查询参数封装
- *
- * @author 刘文军(bluesky.liu)
- * <p>
- * <p>
- * 修改历史：(修改人，修改时间，修改原因/内容)
- * </p>
  */
 public class QueryVo implements Serializable {
 

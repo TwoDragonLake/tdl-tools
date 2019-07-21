@@ -77,6 +77,8 @@ public class IPUtils {
 
     /**
      * 获取本地ip
+     *
+     * @return String
      */
     public static String getLocalIP() {
         Enumeration allNetInterfaces = null;
@@ -106,6 +108,8 @@ public class IPUtils {
 
     /**
      * 获取本机所有IP
+     *
+     * @return String
      */
     public static String[] getAllLocalHostIP() {
         List<String> res = new ArrayList<String>();

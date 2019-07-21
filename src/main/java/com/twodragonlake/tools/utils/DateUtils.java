@@ -115,11 +115,8 @@ public class DateUtils {
     /**
      * 根据日期获取天
      *
-     * @param date
-     * @return
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
+     * @param date date
+     * @return List
      */
     public static List<String> getDaysByDate(Date date) {
         List<String> days = new ArrayList<String>();
@@ -141,6 +138,9 @@ public class DateUtils {
 
     /**
      * 当前时间的周一
+     *
+     * @param theDate theDate
+     * @return String
      */
     @SuppressWarnings("unused")
     public static String getFirstWeekDay(Date theDate) {
@@ -156,6 +156,9 @@ public class DateUtils {
 
     /**
      * 当前时间的周日
+     *
+     * @param theDate theDate
+     * @return String
      */
     @SuppressWarnings("unused")
     public static String getLastWeekDay(Date theDate) {
@@ -172,6 +175,9 @@ public class DateUtils {
 
     /**
      * 当月第一天
+     *
+     * @param theDate theDate
+     * @return String
      */
     @SuppressWarnings("unused")
     public static String getFirstDay(Date theDate) {
@@ -186,13 +192,10 @@ public class DateUtils {
     /**
      * 获取一月 month为1就是上一个月 为-1就是下一个月
      *
-     * @param theDate
-     * @param month
-     * @return
-     * @throws ParseException
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
+     * @param theDate theDate
+     * @param month   month
+     * @return Date
+     * @throws ParseException ParseException
      */
     @SuppressWarnings("unused")
     public static Date getUpMonth(Date theDate, int month)
@@ -207,6 +210,9 @@ public class DateUtils {
 
     /**
      * 当月最后一天
+     *
+     * @param theDate theDate
+     * @return String
      */
     @SuppressWarnings("unused")
     public static String getLastDay(Date theDate) {
@@ -309,9 +315,6 @@ public class DateUtils {
      * @param date Date
      * @param day  int
      * @return Date
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
      */
     public static Date addDate(Date date, int day) {
         Calendar c = Calendar.getInstance();
@@ -325,9 +328,6 @@ public class DateUtils {
      * @param date  Date
      * @param date1 Date
      * @return int
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
      */
     public static int diffDate(Date date, Date date1) {
         return (int) ((getMillis(date) - getMillis(date1)) / (24 * 3600 * 1000));
@@ -339,9 +339,6 @@ public class DateUtils {
      * @param date  Date
      * @param date1 Date
      * @return int
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
      */
     public static Long diffDateTime(Date date, Date date1) {
         return (getMillis(date) - getMillis(date1)) / 1000;
@@ -376,6 +373,8 @@ public class DateUtils {
 
     /**
      * 获得当前时间
+     *
+     * @return Date
      */
     public static Date getCurrentDateTime() {
         Date date = new Date();
@@ -418,12 +417,9 @@ public class DateUtils {
     /**
      * 得到两个日期之间的日期list
      *
-     * @param beginDate
-     * @param endDate
-     * @return
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
+     * @param beginDate beginDate
+     * @param endDate   endDate
+     * @return List
      */
     public static List<Date> getDatesBetweenTwoDate(Date beginDate, Date endDate) {
         List<Date> lDate = new ArrayList<Date>();
@@ -448,12 +444,9 @@ public class DateUtils {
     /**
      * 日期加上几个月
      *
-     * @param date
-     * @param month
-     * @return
-     * @author Maxwell wen
-     * @version : 1.0
-     * @since : 2016/5/11 14:15
+     * @param date  date
+     * @param month month
+     * @return Date
      */
     public static Date addMonth(Date date, int month) {
         Calendar cal = Calendar.getInstance();

@@ -34,10 +34,8 @@ public interface ImportExcelCallBack {
      *                     参数：obj是用来接收该单元格内容的对象
      *                     参数：list是读取excel内容的存储list
      * @param customParams 怎样传入，怎样传出，程序不做处理
+     * @param <T>          T
      * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/10/11 15:52
      */
     <T> void validCallback(ImportParameterVo<T> param, Object... customParams) throws Exception;
 
@@ -48,10 +46,8 @@ public interface ImportExcelCallBack {
      *                     参数：obj是用来接收该单元格内容的对象
      *                     参数：list是读取excel内容的存储list
      * @param customParams 怎样传入，怎样传出，程序不做处理
-     * @throws Exception 异常
-     * @author Ceaser wang
-     * @version : 1.0
-     * @since : 2016/10/11 15:52
+     * @param <T>          T
+     * @throws Exception Exception
      */
     <T> void successCallBack(ImportParameterVo<T> param, Object... customParams) throws Exception;
 }
